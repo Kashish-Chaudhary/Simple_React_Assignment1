@@ -7,23 +7,30 @@ class DishDetail extends Component{
     super(props);
 
 }
+
+renderComments(comments)
+{var month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+ const com = comments.map((comment)=> {
+  return (
+    <div key={comment.id} >
+
+      <p> {comment.comment}</p>
+      <p> -- {comment.author} , {month[parseInt(comment.date.substr(5,2))-1]} {comment.date.substr(8,2)}, {comment.date.substr(0,4)} </p>
+    </div>
+  );
+});
+return (
+  <div className="col-lg-5 col-md-5 col-sm-12 m-1">
+   <h2>Comments</h2><br/>
+     {com}
+   </div>
+)
+}
   render(){
   //  console.log("props             "+this.props.dish);
   // {console.log(month[parseInt(comment.date.substr(5,2))-1])}
-    var com=[];
-    var month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    if(this.props.dish!=null){
 
-     com = this.props.dish.comments.map((comment)=> {
-      return (
-        <div key={comment.id} >
-
-          <p> {comment.comment}</p>
-          <p> -- {comment.author} , {month[parseInt(comment.date.substr(5,2))-1]} {comment.date.substr(8,2)}, {comment.date.substr(0,4)} </p>
-        </div>
-      );
-    });
-}
 if(this.props.dish!=null){
     return (
 
@@ -40,14 +47,12 @@ if(this.props.dish!=null){
 
      </div>
 
-     <div className="col-lg-5 col-md-5 col-sm-12 m-1">
-      <h2>Comments</h2><br/>
-        {com}
-      </div>
-      </div>
+     {this.renderComments(this.props.dish.comments)}
+     </div>
 
     );
   }
+
   else return(
     <div></div>
   );
